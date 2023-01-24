@@ -1,0 +1,84 @@
+.loginPageBackground {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background-color: #ffdfe0;
+}
+
+.greetingLoginBox {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px;
+  height: 500px;
+  background-color: #fff;
+  border-radius: 20px;
+  box-shadow: -10px 10px 13px -6px rgba(0, 0, 0, 0.75);
+  display: flex;
+}
+
+.greetingLoginBox > div {
+  flex: 1;
+}
+
+.greetingBox,
+.loginBox {
+  border-radius: 20px;
+
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+}
+
+.greetingBox {
+  background: linear-gradient(
+    to Bottom,
+    rgb(185, 96, 92) 0%,
+    rgb(211, 144, 141) 75%,
+    rgb(251, 229, 229) 100%
+  );
+  color: #fff;
+  box-shadow: -10px 10px 13px -6px rgba(0, 0, 0, 0.75);
+}
+
+.greetingContext {
+  text-align: center;
+}
+
+/* Button */
+.signUpButton > .MuiButton-root {
+  background-color: #fff !important;
+  color: #b9605c;
+  border-radius: 20px;
+  padding: 10px 20px;
+
+  margin-top: 20px;
+  width: 150px;
+}
+
+.loginDetail {
+  color: #b9605c;
+}
+
+.loginTitle {
+  margin-bottom: 50px;
+}
+
+.inputBoxPassword,
+.inputBoxUsername {
+  max-width: 230px !important;
+}
+
+.buttonBoxSignIn > .MuiButton-root {
+  /* background-color: #fff !important; */
+  color: #b9605c;
+  border-radius: 20px;
+  padding: 10px 20px;
+
+  margin-top: 20px;
+  width: 100%;
+
+  border: 1px solid #b9605c;
+}

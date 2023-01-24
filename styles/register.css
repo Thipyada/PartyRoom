@@ -1,0 +1,104 @@
+.registerPageBackground {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background-color: #ffdfe0;
+}
+
+.welcomeRegisterBox {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px;
+  height: 500px;
+  background-color: #fff;
+  border-radius: 20px;
+  box-shadow: 10px 10px 13px -6px rgba(0, 0, 0, 0.75);
+  display: flex;
+}
+
+.welcomeRegisterBox > div {
+  flex: 1;
+}
+
+.welcomeBox,
+.registerBox {
+  border-radius: 20px;
+
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+}
+
+.welcomeBox {
+  background: linear-gradient(
+    to Bottom,
+    rgb(185, 96, 92) 0%,
+    rgb(211, 144, 141) 75%,
+    rgb(251, 229, 229) 100%
+  );
+  color: #fff;
+  box-shadow: 10px 10px 13px -6px rgba(0, 0, 0, 0.5);
+}
+
+.welcomeContext {
+  text-align: center;
+}
+
+/* Button */
+.signInButton > .MuiButton-root {
+  background-color: #fff !important;
+  color: #b9605c;
+  border-radius: 20px;
+  padding: 10px 20px;
+
+  margin-top: 20px;
+  width: 150px;
+}
+
+.registerDetail {
+  color: #b9605c;
+}
+
+.registerTitle {
+  margin-bottom: 50px;
+}
+
+.inputBoxPassword,
+.inputBoxUserName,
+.inputBoxConfirmPassword {
+  max-width: 230px !important;
+}
+
+.inputBoxPassword > .MuiFormControl-root > .MuiInput-root > .MuiInput-input,
+.inputBoxUserName > .MuiFormControl-root > .MuiInput-root > .MuiInput-input,
+.inputBoxConfirmPassword
+  > .MuiFormControl-root
+  > .MuiInput-root
+  > .MuiInput-input {
+  color: #b9605c !important;
+}
+
+.inputBoxPassword > .MuiFormControl-root > .MuiInput-root :before,
+.inputBoxUserName > .MuiFormControl-root > .MuiInput-root :before,
+.inputBoxConfirmPassword > .MuiFormControl-root > .MuiInput-root :before {
+  border-bottom: 1px solid rgba(185, 96, 92, 0.42) !important;
+}
+
+.inputBoxUserName > .MuiFormControl-root {
+  width: 100% !important;
+}
+
+.buttonBoxSignUp > .MuiButton-root {
+  /* background-color: #fff !important; */
+  color: #b9605c;
+  border-radius: 20px;
+  padding: 10px 20px;
+
+  margin-top: 20px;
+  width: 100%;
+
+  border: 1px solid #b9605c;
+}
