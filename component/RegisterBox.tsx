@@ -8,6 +8,10 @@ import InputAdornment from '@mui/material/InputAdornment'
 import IconButton from '@mui/material/IconButton'
 import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
+import axios from 'axios'
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert, { AlertProps } from '@mui/material/Alert';
+
 
 interface CreateAccount {
   username: string
@@ -26,6 +30,15 @@ const initialAccountForm = {
   errorPassword: false,
   errorPasswordConfirm: false,
 }
+
+const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
+  props,
+  ref,
+) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
+
 export default function RegisterBox() {
   const router = useRouter()
   // const tokenCode = router?.query?.code
@@ -40,7 +53,9 @@ export default function RegisterBox() {
     errorPasswordConfirm: false,
   })
 
-  const [storedAccount, setStoredAccount] = useState<CreateAccount[]>([])
+  const [open, setOpen] = useState(false);
+  const [registerError, setRegisterError] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   const handleChange = (name: string, value: string) => {
     setCreateAccount((prevCreateAccount) => ({
@@ -49,25 +64,42 @@ export default function RegisterBox() {
     }))
   }
 
+  const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+
   const handleSubmit = () => {
     const ValidatedUsernameResult = validateUsername(createAccount.username)
     const ValidatedPasswordResult = validatePassword(createAccount.password)
     const ValidatedPasswordConfirmResult = validatePasswordConfirm(createAccount.password, createAccount.passwordConfirm)
 
     if (ValidatedUsernameResult && ValidatedPasswordResult && ValidatedPasswordConfirmResult) {
-      setStoredAccount((prevAccount) => {
-        const newAccount = { ...createAccount }
-        return [
-          ...prevAccount,
-          newAccount
-        ]
-      })
+      setLoading(true)
+      axios
+        .post("https://lets-party-backend.vercel.app/register", { username: createAccount.username, password: createAccount.passwordConfirm })
+        .then(response => {
+          if (response.data.message === 'สมัครสมาชิกสำเร็จ') {
+            setLoading(false)
+            setOpen(true)
+            setTimeout(() => router.push('/login'), 1500)
+          }
+          // console.log(response)
+          // // Handle response
+        }).catch((error) => {
+          setLoading(false)
+          setRegisterError(true)
+        })
+
       setCreateAccount(initialAccountForm)
     }
   }
 
   const validateUsername = (usernameInput: string) => {
-    if (usernameInput.length < 20 && usernameInput.length > 8) {
+    if (usernameInput.length < 20 && usernameInput.length > 7) {
       setCreateAccount((prev) => ({
         ...prev,
         errorUsername: false
@@ -131,98 +163,113 @@ export default function RegisterBox() {
   };
 
   return (
-    <div className='registerBox'>
-      <div className="registerDetail">
-        <h1 className='registerTitle'>Create Account</h1>
+    <>
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose} >
+        <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+          Registration Success !
+        </Alert>
+      </Snackbar >
 
-        <Stack spacing={4}>
-          <div className="inputBoxUserName">
-            <TextField
-              variant='standard'
-              className="inputUsername"
-              placeholder='Username'
-              name='username'
-              value={createAccount.username}
-              onChange={(e) => handleChange(e.target.name, e.target.value)}
-              required
-              error={createAccount.errorUsername}
-              helperText={createAccount.errorUsername ? 'Username must be longer than 8 characters' : undefined}
-            />
-          </div>
+      <Snackbar open={registerError} autoHideDuration={6000} onClose={handleClose} >
+        <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+          This username is already existed
+        </Alert>
+      </Snackbar >
 
-          <div className="inputBoxPassword">
-            <TextField
-              id="input-with-icon-textfield"
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                      edge="end"
-                    >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
+      <div className='registerBox'>
+        <div className="registerDetail">
+          <h1 className='registerTitle'>Create Account</h1>
 
-              variant='standard'
-              className="inputPassword"
-              type={showPassword ? 'password' : 'text'}
-              placeholder='Password'
-              name='password'
-              value={createAccount.password}
-              onChange={(e) => handleChange(e.target.name, e.target.value)}
-              required
-              error={createAccount.errorPassword}
-              helperText={createAccount.errorPassword ? 'Password must contain more than 8 characters' : undefined}
-            />
-          </div>
+          <Stack spacing={4}>
+            <div className="inputBoxRegisterUserName">
+              <TextField
+                variant='standard'
+                className="inputUsername"
+                placeholder='Username'
+                name='username'
+                value={createAccount.username}
+                onChange={(e) => handleChange(e.target.name, e.target.value)}
+                required
+                error={createAccount.errorUsername}
+                helperText={createAccount.errorUsername ? 'Username must be longer than 8 characters' : ' '}
+              />
+            </div>
 
-          <div className="inputBoxConfirmPassword">
-            <TextField
-              id="input-with-icon-textfield"
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowConfirmPassword}
-                      onMouseDown={handleMouseDownPassword}
-                      edge="end"
-                    >
-                      {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
+            <div className="inputBoxRegisterPassword">
+              <TextField
+                id="input-with-icon-textfield"
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                        edge="end"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
 
-              variant='standard'
-              className="inputConfirmPassword"
-              type={showConfirmPassword ? 'password' : 'text'}
-              placeholder='Confirm Password'
-              name='passwordConfirm'
-              value={createAccount.passwordConfirm}
-              onChange={(e) => handleChange(e.target.name, e.target.value)}
-              required
-              error={createAccount.errorPasswordConfirm}
-              helperText={createAccount.errorPasswordConfirm ? 'Mismatch password, try again' : undefined}
-            />
-          </div>
+                variant='standard'
+                className="inputPassword"
+                type={showPassword ? 'password' : 'text'}
+                placeholder='Password'
+                name='password'
+                value={createAccount.password}
+                onChange={(e) => handleChange(e.target.name, e.target.value)}
+                required
+                error={createAccount.errorPassword}
+                helperText={createAccount.errorPassword ? 'Password must contain more than 8 characters' : ' '}
+              />
+            </div>
 
-          <div className="buttonBoxSignUp">
-            <Button
-              variant="outlined"
-              className='confirmButton'
-              onClick={handleSubmit}
-            >
-              Create Account
-            </Button>
-          </div>
-        </Stack>
+            <div className="inputBoxRegisterConfirmPassword">
+              <TextField
+                id="input-with-icon-textfield"
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowConfirmPassword}
+                        onMouseDown={handleMouseDownPassword}
+                        edge="end"
+                      >
+                        {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+
+                variant='standard'
+                className="inputConfirmPassword"
+                type={showConfirmPassword ? 'password' : 'text'}
+                placeholder='Confirm Password'
+                name='passwordConfirm'
+                value={createAccount.passwordConfirm}
+                onChange={(e) => handleChange(e.target.name, e.target.value)}
+                required
+                error={createAccount.errorPasswordConfirm}
+                helperText={createAccount.errorPasswordConfirm ? 'Mismatch password, try again' : ' '}
+              />
+            </div>
+
+            <div className="buttonBoxSignUp">
+              <Button
+                variant="outlined"
+                className='confirmButton'
+                onClick={handleSubmit}
+                disabled={loading}
+              >
+                {loading ? 'Loading...' : 'Create Account'}
+              </Button>
+            </div>
+          </Stack>
+        </div>
       </div>
-    </div>
+    </>
   )
 }

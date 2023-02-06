@@ -1,21 +1,57 @@
 .loginPageBackground {
   position: relative;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
+  height: 100%;
   background-color: #ffdfe0;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+
+.greetingLoginCover {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
 }
 
 .greetingLoginBox {
-  position: absolute;
+  /* position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  width: 800px;
-  height: 500px;
+  transform: translate(-50%, -50%); */
+
+  width: 100%;
+  max-width: 800px;
+  min-width: 240px;
+  min-height: 500px;
   background-color: #fff;
   border-radius: 20px;
-  box-shadow: -10px 10px 13px -6px rgba(0, 0, 0, 0.75);
+  box-shadow: -10px 10px 13px -6px rgba(185, 96, 92, 0.75);
   display: flex;
+}
+
+@media screen and (max-width: 600px) {
+  .greetingLoginBox {
+    flex-direction: column-reverse;
+    max-width: 400px;
+  }
+
+  .greetingBox,
+  .loginBox {
+    min-height: 450px;
+  }
+
+  .greetingContext {
+    height: fit-content;
+  }
+
+  .buttonBoxSignIn {
+    margin-top: 0 !important;
+  }
 }
 
 .greetingLoginBox > div {
@@ -40,11 +76,12 @@
     rgb(251, 229, 229) 100%
   );
   color: #fff;
-  box-shadow: -10px 10px 13px -6px rgba(0, 0, 0, 0.75);
+  box-shadow: -10px 10px 13px -6px rgba(185, 96, 92, 0.75);
 }
 
 .greetingContext {
   text-align: center;
+  padding: 20px;
 }
 
 /* Button */
@@ -66,9 +103,25 @@
   margin-bottom: 50px;
 }
 
-.inputBoxPassword,
-.inputBoxUsername {
-  max-width: 230px !important;
+.inputBoxLoginPassword,
+.inputBoxLoginUserName {
+  max-width: 350px !important;
+}
+
+.inputBoxLoginPassword
+  > .MuiFormControl-root
+  > .MuiInput-root
+  > .MuiInput-input,
+.inputBoxLoginUserName
+  > .MuiFormControl-root
+  > .MuiInput-root
+  > .MuiInput-input {
+  color: #b9605c !important;
+}
+
+.inputBoxLoginUserName > .MuiFormControl-root,
+.inputBoxLoginPassword > .MuiFormControl-root {
+  width: 100% !important;
 }
 
 .buttonBoxSignIn > .MuiButton-root {

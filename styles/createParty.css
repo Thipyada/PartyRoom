@@ -1,0 +1,135 @@
+.createPartyPageBackground {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  height: 100%;
+  background-color: #ffdfe0;
+  /* padding: 0 20px; */
+  /* overflow-y: hidden; */
+
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+
+.createPartyCover {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.createPartyPageBox {
+  /* position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); */
+
+  width: 100%;
+  max-width: 800px;
+  min-width: 240px;
+  min-height: 500px;
+  background-color: #fff;
+  border-radius: 20px;
+  box-shadow: 10px 10px 13px -6px rgba(185, 96, 92, 0.75);
+  display: flex;
+}
+
+/* .createPartyPageBox > div {
+  flex: 1;
+} */
+
+.createPartyBox {
+  border-radius: 20px;
+
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+}
+
+.createPartyBox {
+  background: linear-gradient(
+    to top,
+    rgb(255, 255, 255) 0%,
+    rgb(250, 241, 241) 75%,
+    rgb(252, 235, 236) 100%
+  );
+  color: #b9605c;
+  box-shadow: 10px 10px 13px -6px rgba(185, 96, 92, 0.5);
+}
+
+.createPartyContext {
+  text-align: center;
+  height: 100%;
+
+  padding: 0 20px;
+
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Button */
+.createPartyButton {
+  width: 100%;
+}
+.createPartyButton > .MuiButton-root {
+  background-color: #b9605c !important;
+  color: #fff;
+  border-radius: 20px;
+  padding: 10px 20px;
+
+  margin-top: 20px;
+  width: 100%;
+}
+
+/* Input Box */
+.inputStack {
+  width: 100%;
+}
+
+.inputBoxCreatePartyName,
+.inputBoxCreatePartyMembers {
+  max-width: 350px !important;
+}
+
+.inputBoxCreatePartyName > .MuiFormControl-root > .MuiInputLabel-root,
+.inputBoxCreatePartyMembers > .MuiFormControl-root > .MuiInputLabel-root {
+  color: #b9605c !important;
+  font-size: 1.2rem !important;
+}
+
+.inputBoxCreatePartyName > .MuiFormControl-root > .MuiInput-root::before,
+.inputBoxCreatePartyMembers > .MuiFormControl-root > .MuiInput-root::before {
+  border-bottom: 1px solid #b9605c;
+}
+
+.inputBoxCreatePartyName > .MuiFormControl-root,
+.inputBoxCreatePartyMembers > .MuiFormControl-root {
+  width: 100% !important;
+}
+
+/* Back Home Button */
+.createPartyHomeButton {
+  width: 100%;
+}
+.createPartyHomeButton > .MuiButton-root {
+  background-color: #ffffff;
+  color: #b9605c;
+  border-radius: 20px;
+  padding: 10px 20px;
+  width: 100% !important;
+
+  border: 1px solid #b9605c;
+
+  text-transform: none;
+  font-size: 1rem;
+  font-weight: 700;
+}

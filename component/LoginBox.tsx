@@ -8,6 +8,9 @@ import InputAdornment from '@mui/material/InputAdornment'
 import IconButton from '@mui/material/IconButton'
 import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
+import axios from 'axios'
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert, { AlertProps } from '@mui/material/Alert';
 
 interface LoginAccount {
   username: string
@@ -23,6 +26,13 @@ const initialAccountForm = {
   errorPassword: false,
 }
 
+const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
+  props,
+  ref,
+) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
 export default function LoginBox() {
   const router = useRouter()
   // const tokenCode = router?.query?.code
@@ -35,7 +45,8 @@ export default function LoginBox() {
     errorPassword: false,
   })
 
-  const [storedAccount, setStoredAccount] = useState<LoginAccount[]>([])
+  const [open, setOpen] = useState(false);
+  const [loginError, setLoginError] = useState(false)
 
   const handleChange = (name: string, value: string) => {
     setLoginAccount((prevLoginAccount) => ({
@@ -44,24 +55,37 @@ export default function LoginBox() {
     }))
   }
 
+  const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+
   const handleSubmit = () => {
     const ValidatedUsernameResult = validateUsername(loginAccount.username)
     const ValidatedPasswordResult = validatePassword(loginAccount.password)
 
     if (ValidatedUsernameResult && ValidatedPasswordResult) {
-      setStoredAccount((prevAccount) => {
-        const Account = { ...loginAccount }
-        return [
-          ...prevAccount,
-          Account
-        ]
-      })
+      axios
+        .post("https://lets-party-backend.vercel.app/login", { username: loginAccount.username, password: loginAccount.password })
+        .then(response => {
+          if (response.data.message === 'เข้าสู่ระบบสำเร็จ') {
+            setOpen(true)
+            setTimeout(() => router.push('/'), 1500)
+          }
+          // console.log(response)
+          // // Handle response
+        }).catch((error) => {
+          setLoginError(true)
+        })
       setLoginAccount(initialAccountForm)
     }
   }
 
   const validateUsername = (usernameInput: string) => {
-    if (usernameInput.length < 20 && usernameInput.length > 8) {
+    if (usernameInput.length < 20 && usernameInput.length > 7) {
       setLoginAccount((prev) => ({
         ...prev,
         errorUsername: false
@@ -103,68 +127,84 @@ export default function LoginBox() {
   const handleMouseDownPassword = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
   };
+
+
   return (
-    <div className='LoginBox'>
-      <div className="LoginDetail">
-        <h1 className='loginTitle'>Sign In</h1>
+    <>
+      {/* <Snackbar open={open} autoHideDuration={6000} onClose={handleClose} >
+        <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+          Registration Success !
+        </Alert>
+      </Snackbar > */}
 
-        <Stack spacing={4}>
-          <div className="inputBoxUserName">
-            <TextField
-              variant='standard'
-              className="inputUsername"
-              placeholder='Username'
-              name='username'
-              value={loginAccount.username}
-              onChange={(e) => handleChange(e.target.name, e.target.value)}
-              required
-              error={loginAccount.errorUsername}
-              helperText={loginAccount.errorUsername ? 'Username must be longer than 8 characters' : undefined}
-            />
-          </div>
+      <Snackbar open={loginError} autoHideDuration={6000} onClose={handleClose} >
+        <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+          Login Error
+        </Alert>
+      </Snackbar >
 
-          <div className="inputBoxPassword">
-            <TextField
-              id="input-with-icon-textfield"
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                      edge="end"
-                    >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
+      <div className='LoginBox'>
+        <div className="LoginDetail">
+          <h1 className='loginTitle'>Sign In</h1>
 
-              variant='standard'
-              className="inputPassword"
-              type={showPassword ? 'password' : 'text'}
-              placeholder='Password'
-              name='password'
-              value={loginAccount.password}
-              onChange={(e) => handleChange(e.target.name, e.target.value)}
-              required
-              error={loginAccount.errorPassword}
-              helperText={loginAccount.errorPassword ? 'Password must contain more than 8 characters' : undefined}
-            />
-          </div>
+          <Stack spacing={4}>
+            <div className="inputBoxLoginUserName">
+              <TextField
+                variant='standard'
+                className="inputUsername"
+                placeholder='Username'
+                name='username'
+                value={loginAccount.username}
+                onChange={(e) => handleChange(e.target.name, e.target.value)}
+                required
+                error={loginAccount.errorUsername}
+                helperText={loginAccount.errorUsername ? 'Username must be longer than 8 characters' : ' '}
+              />
+            </div>
 
-          <div className="buttonBoxSignUp">
-            <Button
-              variant="outlined"
-              className='confirmButton'
-              onClick={handleSubmit}
-            >
-              Log In
-            </Button>
-          </div>
-        </Stack>
+            <div className="inputBoxLoginPassword">
+              <TextField
+                id="input-with-icon-textfield"
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                        edge="end"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+
+                variant='standard'
+                className="inputPassword"
+                type={showPassword ? 'password' : 'text'}
+                placeholder='Password'
+                name='password'
+                value={loginAccount.password}
+                onChange={(e) => handleChange(e.target.name, e.target.value)}
+                required
+                error={loginAccount.errorPassword}
+                helperText={loginAccount.errorPassword ? 'Password must contain more than 8 characters' : ' '}
+              />
+            </div>
+
+            <div className="buttonBoxSignUp">
+              <Button
+                variant="outlined"
+                className='confirmButton'
+                onClick={handleSubmit}
+              >
+                Log In
+              </Button>
+            </div>
+          </Stack>
+        </div>
       </div>
-    </div>
+    </>
   )
 }

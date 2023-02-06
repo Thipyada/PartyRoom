@@ -1,0 +1,322 @@
+.partyDetailPage {
+  position: relative;
+  /* background-color: #000; */
+  min-height: 100vh;
+  height: 100%;
+  width: 100%;
+}
+
+.partyDetailPage > .MuiSnackbar-root {
+  top: 8px !important;
+  align-items: flex-start !important;
+  height: fit-content;
+}
+
+.partyDetailCover {
+  padding: 20px;
+}
+
+.partyDetailPageBox .itemBox {
+  /* border: 1px solid #b9605c; */
+  height: 100%;
+}
+
+/* party title */
+
+.partyTitle {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  /* justify-content: center; */
+}
+
+.partySchedule {
+  width: 100px;
+  height: 100px;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.scheduleIcon {
+  border-radius: 15px;
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.monthBox > h2,
+.dateBox > h2 {
+  margin: 0;
+  text-align: center;
+}
+
+.monthBox > h2 {
+  padding: 5px;
+  color: #ffffff;
+}
+
+.dateBox > h2 {
+  color: #b9605c;
+}
+
+.monthBox {
+  background-color: #b9605c;
+  border: 1px solid #b9605c;
+  border-bottom: none;
+  border-top-right-radius: 15px;
+  border-top-left-radius: 15px;
+  width: 100%;
+}
+
+.dateBox {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  /* background-color: #b9605c; */
+  border: 1px solid #b9605c;
+  border-top: none;
+  border-bottom-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+}
+
+.partyName {
+  padding-left: 20px;
+}
+
+.partyName > h1 {
+  color: #b9605c;
+}
+
+/* partyImage */
+
+.partyImage {
+  width: 100%;
+  height: 100%;
+}
+
+.partyImage img {
+  width: 100%;
+  border-radius: 25px;
+}
+
+/* partyShortDetail */
+.partyOrganizerBox {
+  height: calc(100% - 40px);
+  padding: 20px;
+  padding-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+
+  border: 1px solid rgba(185, 96, 92, 0.6);
+  border-radius: 20px;
+}
+
+.partyOrganizer,
+.partyDateAndTime,
+.partyLocation {
+  display: flex;
+
+  color: rgba(185, 96, 92, 0.6);
+}
+
+.organizerIcon,
+.calendarIcon,
+.locationIcon {
+  padding-right: 20px;
+}
+
+.organizerTitle,
+.calendarTitle,
+.locationTitle {
+  height: 24px;
+  width: 80px !important;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.organizerName,
+.calendarDate,
+.calendarTime,
+.locationSpecify,
+.locationPlace {
+  color: rgba(185, 96, 92, 1);
+
+  padding-top: 10px;
+}
+
+/* partyDescriptions */
+.partyDescriptions {
+  color: #b9605c;
+  text-align: left;
+}
+
+.partyDescriptionsTop > h3,
+.partyDescriptions > h3,
+.partyDescriptions > p {
+  padding: 0 20px;
+}
+
+.partyDescriptionsTop > h3 {
+  height: 56px;
+  margin: 0;
+  position: relative;
+}
+
+.partyDescriptionsTop > h3 > span {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  border-bottom: 1px solid #d3908d;
+}
+
+.partyDescriptionsTop > h3 > span::after {
+  content: "";
+  position: absolute;
+  top: -1px;
+  width: 60px;
+  height: 100%;
+  border-bottom: 3px solid #b9605c;
+}
+
+.partyDescriptions > h3 {
+  padding-top: 30px;
+  padding-bottom: 10px;
+}
+/* reservedSpotButton */
+
+.reservedSpotButton > .MuiButton-root {
+  border-radius: 15px;
+  color: #b9605c;
+  font-weight: 700;
+  font-size: 1rem;
+  text-transform: none;
+  background-color: rgba(211, 144, 141, 50%);
+
+  padding: 10px 20px;
+  width: 100%;
+  height: 56px;
+}
+
+.backHomeButtonMobile > .MuiButton-root,
+.backHomeButtonDesktop > .MuiButton-root {
+  background-color: #ffffff;
+  color: #b9605c;
+  border-radius: 15px;
+  padding: 10px 20px;
+
+  margin-top: 20px;
+  width: 100%;
+
+  border: 1px solid #b9605c;
+
+  text-transform: none;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.backHomeButtonDesktop > .MuiButton-root {
+  width: auto;
+  border-radius: 50px;
+}
+
+/* Responsive */
+
+@media screen and (max-width: 900px) {
+  .partyOrganizerBox {
+    height: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0px 30px 0px 20px;
+    /* padding-left: 20px;
+    padding-right: 60px; */
+    border: none;
+  }
+
+  .organizerIcon,
+  .calendarIcon,
+  .locationIcon {
+    padding-right: 5px !important;
+  }
+}
+
+@media screen and (max-width: 568px) and (min-width: 426px) {
+  .partyOrganizerBox {
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    padding-top: 0;
+  }
+
+  .partyOrganizer,
+  .partyDateAndTime,
+  .partyLocation {
+    display: flex;
+  }
+
+  .organizerDetail,
+  .calendarDetail,
+  .locationDetail {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    /* justify-content: space-between; */
+    /* width: 100%; */
+  }
+
+  .organizerName,
+  .calendarDate,
+  .calendarTime,
+  .locationSpecify,
+  .locationPlace {
+    padding: 0 0 0 15px !important;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .partyOrganizerBox {
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    padding-top: 10px;
+  }
+
+  .partyOrganizer,
+  .partyDateAndTime,
+  .partyLocation {
+    display: flex;
+  }
+
+  .organizerDetail,
+  .calendarDetail,
+  .locationDetail {
+    display: flex;
+    flex-direction: column;
+    padding-left: 30px;
+    /* align-items: center; */
+    /* justify-content: space-between;
+    width: 100%; */
+  }
+
+  .organizerName,
+  .calendarDate,
+  .calendarTime,
+  .locationSpecify,
+  .locationPlace {
+    padding-top: 10px !important;
+  }
+}

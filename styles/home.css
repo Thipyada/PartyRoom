@@ -1,0 +1,233 @@
+.homePage {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+}
+
+/* Header */
+
+header {
+  position: relative;
+  width: 100%;
+
+  background-color: #fbe5e5;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.headerTop {
+  padding: 10px 20px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* .headerTop .logout {
+  padding-right: 10px;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+} */
+
+.headerTop .logout > .MuiButton-root {
+  border-radius: 25px;
+  color: #b9605c;
+  background-color: #ffffff;
+}
+
+.headerTop .socialMediaBox {
+  width: 100px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.socialMediaBox svg {
+  width: 1em;
+  height: 1em;
+  color: #b9605c;
+}
+
+.headerTitleBox {
+  width: 100%;
+  height: 90px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  background: linear-gradient(
+    to Bottom,
+    rgb(185, 96, 92) 0%,
+    rgb(211, 144, 141) 100%
+  );
+
+  box-shadow: 8px 2px 10px 2px rgba(185, 96, 92, 0.25);
+
+  color: #ffffff;
+}
+
+.headerBox .headerTitle {
+  text-align: center;
+}
+
+.headerContext {
+  color: #b9605c;
+  padding: 20px;
+  text-align: center;
+}
+
+/* Adding Party Button */
+
+.floatingAddButton {
+  position: fixed;
+  /* top: 95%; */
+  /* left: 95%; */
+  right: 20px;
+  bottom: 20px;
+  /* transform: translate(-5%, -5%); */
+}
+
+.floatingAddButton > .MuiFab-root {
+  /* width: 112px; */
+  /* height: 112px; */
+  background-color: #b9605c;
+}
+
+/* .floatingAddButton > .MuiFab-root > svg {
+  width: 2em;
+  height: 2em;
+} */
+
+/* Party Search Box */
+
+.searchTextfieldBox {
+  padding: 0 60px;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.searchTextfieldBox .MuiTextField-root {
+  width: 75%;
+  background-color: #ffffff;
+}
+
+.searchTextfieldBox .MuiTextField-root .MuiInputLabel-root {
+  padding-left: 16px;
+}
+
+.searchTextfieldBox .MuiTextField-root .MuiInput-root {
+  margin: 16px;
+}
+
+/* Account Name Display */
+
+.accountDisplay {
+  padding: 30px 60px;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.accountDisplay > .MuiChip-root {
+  width: 74%;
+  height: 48px;
+  border-radius: 25px;
+  color: #b9605c;
+  border: 1px solid #b9605c;
+}
+
+.accountDisplay > .MuiChip-root > .MuiChip-label {
+  font-size: 1.625rem;
+}
+
+/* Party Card */
+.partyCard {
+  padding: 40px 100px;
+}
+
+.partyCard .MuiCard-root {
+  border-radius: 15px;
+}
+
+.partyCard .partyContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  color: #b9605c;
+
+  background-color: #fbe5e5;
+}
+
+.partyCard .MuiTypography-root {
+  margin-bottom: 0.5em;
+}
+
+.partyContent .partyTime {
+  padding-bottom: 20px;
+}
+
+.partyContent .partyTime,
+.partyContent .partyLocation {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.partyContent .partyTime span,
+.partyContent .partyLocation span {
+  padding-left: 10px;
+}
+
+.partyOptions {
+  display: flex !important;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.partyOptions .partyMember {
+  display: flex;
+  align-items: center;
+  color: #b9605c;
+}
+
+.partyOptions .partyCardButton {
+  display: flex;
+}
+
+.partyOptions .partyCardButton > .MuiButton-root {
+  padding: 3px 8px;
+  border-radius: 25px;
+  color: #b9605c;
+  background-color: #ffffff;
+  border: 1px solid #b9605c;
+  /* box-shadow: 0px 3px 1px -2px rgba(185, 96, 92, 20%),
+    0px 2px 2px 0px rgba(185, 96, 92, 14%),
+    0px 1px 5px 0px rgba(185, 96, 92, 12%); */
+}
+
+@media screen and (max-width: 768px) {
+  .partyCard {
+    padding: 20px;
+  }
+
+  .searchTextfieldBox {
+    padding: 0 30px;
+  }
+
+  .searchTextfieldBox .MuiTextField-root {
+    width: 100%;
+  }
+
+  .accountDisplay {
+    padding: 30px;
+  }
+
+  .accountDisplay > .MuiChip-root {
+    width: 100%;
+  }
+}
